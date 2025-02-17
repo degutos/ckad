@@ -61,6 +61,14 @@ kubectl rollout undo deploy/myapp-deployment
 
 We will notice at least 02 replicasets demonstrating these two deployments and number of pods for each replicasets. 
 
+## Deployment restart
+
+If we want just restart a deployment to recycle pods:
+
+```
+kubectl rollout restart deployment myapp-deployment -n <namespace>
+```
+
 
 
 ## Summarize commands:
