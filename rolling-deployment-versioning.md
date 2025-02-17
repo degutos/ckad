@@ -114,3 +114,82 @@ To Rollback a deployment version/image:
 kubectl rollout undo deployment/myapp-deployment
 ```
 
+```
+➜  ~ kubectl create deployment nginx --image=nginx:1.16
+deployment.apps/nginx created
+
+➜  ~ kubectl get pods
+NAME                     READY   STATUS    RESTARTS   AGE
+nginx-599c4f6679-tbltw   1/1     Running   0          107s
+simple-webapp-1          1/1     Running   0          3d11h
+
+➜  ~ kubectl rollout status deployment nginx
+deployment "nginx" successfully rolled out
+
+➜  ~ kubectl rollout history deployment nginx
+deployment.apps/nginx
+REVISION  CHANGE-CAUSE
+1         <none>
+
+---
+
+➜  ~ kubectl create deploy nginx --image=nginx:1.16
+deployment.apps/nginx created
+
+➜  ~ kubectl get deploy
+NAME    READY   UP-TO-DATE   AVAILABLE   AGE
+nginx   1/1     1            1           6s
+
+➜  ~ kubectl get pods
+NAME                     READY   STATUS    RESTARTS   AGE
+nginx-599c4f6679-j25c5   1/1     Running   0          20s
+simple-webapp-1          1/1     Running   0          3d11h
+
+kubectl rollout status deployment nginx
+deployment "nginx" successfully rolled out
+
+➜  ~ kubectl rollout history deployment nginx
+deployment.apps/nginx
+REVISION  CHANGE-CAUSE
+1         <none>
+
+
+➜  ~ kubectl rollout history deployment nginx --revision=1
+deployment.apps/nginx with revision #1
+Pod Template:
+  Labels:	app=nginx
+	pod-template-hash=599c4f6679
+  Containers:
+   nginx:
+    Image:	nginx:1.16
+    Port:	<none>
+    Host Port:	<none>
+    Environment:	<none>
+    Mounts:	<none>
+  Volumes:	<none>
+  Node-Selectors:	<none>
+  Tolerations:	<none>
+
+
+  ➜  ~ kubectl set image deployment nginx nginx=nginx:1.17 --record
+Flag --record has been deprecated, --record will be removed in the future
+deployment.apps/nginx image updated
+
+
+➜  ~ kubectl rollout history deployment nginx
+deployment.apps/nginx
+REVISION  CHANGE-CAUSE
+1         <none>
+2         kubectl set image deployment nginx nginx=nginx:1.17 --record=true
+
+➜  ~ kubectl rollout undo deployment nginx --to-revision=1
+deployment.apps/nginx rolled back
+
+  ~ kubectl rollout history deployment nginx
+deployment.apps/nginx
+REVISION  CHANGE-CAUSE
+2         kubectl set image deployment nginx nginx=nginx:1.17 --record=true
+3         kubectl edit deployment nginx --record=true
+4         <none>
+```
+
