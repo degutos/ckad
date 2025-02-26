@@ -193,3 +193,23 @@ REVISION  CHANGE-CAUSE
 4         <none>
 ```
 
+## Curl command to test communication to the pod http service
+
+```
+ ➜  cat curl-test.sh 
+for i in {1..3}; do
+   kubectl exec --namespace=kube-public curl -- sh -c 'test=`wget -qO- -T 2  http://webapp-service.default.svc.cluster.local:8080/info 2>&1` && echo "$test OK" || echo "Failed"';
+   echo ""
+done
+```
+
+- The output would be something like this:
+
+```
+~ ➜  ./curl-test.sh 
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+
+Hello, Application Version: v1 ; Color: blue OK
+```
