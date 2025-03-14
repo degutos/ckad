@@ -62,6 +62,51 @@ In this example:
 
 Network policies provide a powerful way to secure communication between services within your Kubernetes cluster, limiting unnecessary exposure and controlling access based on labels and other network attributes.
 
-Let me know if you'd like further clarification on a specific use case or more examples!
+Solutions that support Network policies:
 
+- kube-router
+- Calico
+- Romana
+- Weave-net
+  
+Solutions that do not support network policies:
+- Flannel
+
+
+```
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: internal-policy
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      name: internal
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          name: mysql
+    ports:
+    - protocol: TCP
+      port: 3306
+
+  - to:
+    - podSelector:
+        matchLabels:
+          name: payroll
+    ports:
+    - protocol: TCP
+      port: 8080
+
+  - ports:
+    - protocol: TCP
+      port: 53
+    - protocol: UDP
+      port: 53
+
+```
 

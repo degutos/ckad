@@ -7,7 +7,7 @@ When you configure a readiness probe, Kubernetes will periodically check the sta
 Key Points:
 
 Purpose: Determines if a container can handle traffic (i.e., if it's "ready").
-When it's used: Typically, readiness probes are helpful when your application needs time to start or initialize before it can serve requests (e.g., waiting for a database to be available or completing a time-consuming initialization).
+When it's used: Typically, readiness probes are helpful when your application needs time to start or initialize before it can serve requests (e.g., waiting for  a database to be available or completing a time-consuming initialization).
 Behavior:
 If the readiness probe fails, the container is considered not ready, and Kubernetes will remove it from the load balancer's pool of available endpoints, preventing traffic from being sent to it.
 Once the probe starts succeeding, the container is considered ready again, and traffic will be routed to it.

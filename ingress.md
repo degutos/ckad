@@ -274,3 +274,25 @@ pay-service   ClusterIP   172.20.47.255   <none>        8282/TCP   9m11s
 ```
 
 
+## Ingress-networking
+
+```
+➜  kubectl get deploy -A
+NAMESPACE     NAME              READY   UP-TO-DATE   AVAILABLE   AGE
+app-space     default-backend   1/1     1            1           4m42s
+app-space     webapp-video      1/1     1            1           4m42s
+app-space     webapp-wear       1/1     1            1           4m42s
+```
+
+```
+➜  kubectl create ns ingress-nginx
+namespace/ingress-nginx created
+```
+
+Lets create a configmap with no data
+
+```
+➜  kubectl create configmap ingress-nginx-controller -n ingress-nginx
+configmap/ingress-nginx-controller created
+```
+

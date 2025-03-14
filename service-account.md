@@ -19,6 +19,16 @@
 - When you have a third part application that need to access the kube-api you will need a token generated for the service account 
 - When a service account is created its not going to create anymore a token for that customer account. 
 
+
+## Listing a Serivce account 
+
+```
+controlplane ~ ➜  kubectl get serviceaccount
+NAME      SECRETS   AGE
+default   0         8m53s
+dev       0         28s
+```
+
 ## Creating a Service account 
 
 ```
@@ -144,8 +154,6 @@ pod/my-pod created
   serviceAccount: dashboard-andre
   serviceAccountName: dashboard-andre
   ```
-
-
 
 
 
