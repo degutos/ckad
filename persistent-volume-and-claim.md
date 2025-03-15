@@ -202,10 +202,10 @@ pv-log   100Mi      RWX            Retain           Available                   
 
 
 ```
+> [!IMPORTANT]
+> As we see the `PVC` is in `Pending` state because it does not match the accessModes for the PV. Lets change the accessMode for this VPC.
 
-- Note: As we see the `PVC` is in `Pending` state because it does not match the accessModes for the PV. Lets change the accessMode for this VPC.
-
-```bash
+```sh
 ➜  cat pvc.yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -226,8 +226,8 @@ NAME          STATUS   VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEA
 claim-log-1   Bound    pv-log   100Mi      RWX                           <unset>                 16s
 
 ```
-
-- Now we have the PVC created and in Bound state.
+> [!NOTE]
+> - Now we have the PVC created and in Bound state.
 
 
 ## Pod
@@ -362,8 +362,8 @@ persistentvolumeclaim "claim-log-1" deleted
 NAME          STATUS        VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
 claim-log-1   Terminating   pv-log   100Mi      RWX                           <unset>                 13m
 ```
-
-- Note: the PVC is in the Terminating state because it is used by the pod 
+> [!NOTE]
+> Note: the PVC is in the Terminating state because it is used by the pod 
 
 ```bash
 ➜  kubectl get pods
@@ -378,7 +378,8 @@ NAME     CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS     CLAIM            
 pv-log   100Mi      RWX            Retain           Released   default/claim-log-1                  <unset>                          30m
 
 ```
+> [!Note]
+> - Notice: When we delete the PVC the PV is in `Released` state
 
-- Notice: When we delete the PVC the PV is in `Released` state
 
 
