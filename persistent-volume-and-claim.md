@@ -89,6 +89,7 @@ The same is true for ReplicaSets or Deployments. Add this to the pod template se
 Reference URL: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#claims-as-volumes
 
 
+
 # Volumes
 
 
@@ -127,10 +128,12 @@ spec:
     path: /pv/log
 ```
 
+
 ```bash
 ➜  kubectl apply -f pv.yaml 
 persistentvolume/pv-log created
 ```
+
 
 ```yaml
 ➜  kubectl describe pv pv-log 
@@ -202,8 +205,12 @@ pv-log   100Mi      RWX            Retain           Available                   
 
 
 ```
+
+
 > [!IMPORTANT]
 > As we see the `PVC` is in `Pending` state because it does not match the accessModes for the PV. Lets change the accessMode for this VPC.
+
+
 
 ```sh
 ➜  cat pvc.yaml
@@ -226,8 +233,11 @@ NAME          STATUS   VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEA
 claim-log-1   Bound    pv-log   100Mi      RWX                           <unset>                 16s
 
 ```
+
+
 > [!NOTE]
 > - Now we have the PVC created and in Bound state.
+
 
 
 ## Pod
@@ -362,8 +372,11 @@ persistentvolumeclaim "claim-log-1" deleted
 NAME          STATUS        VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
 claim-log-1   Terminating   pv-log   100Mi      RWX                           <unset>                 13m
 ```
+
+
 > [!NOTE]
 > Note: the PVC is in the Terminating state because it is used by the pod 
+
 
 ```bash
 ➜  kubectl get pods
@@ -378,6 +391,8 @@ NAME     CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS     CLAIM            
 pv-log   100Mi      RWX            Retain           Released   default/claim-log-1                  <unset>                          30m
 
 ```
+
+
 > [!Note]
 > - Notice: When we delete the PVC the PV is in `Released` state
 
