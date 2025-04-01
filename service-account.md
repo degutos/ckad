@@ -46,7 +46,7 @@ default           0         355d
 Notice that we created a new service account. Every namespace for default has automatically created a default service account called "default" 
 
 
-```
+```sh 
  kubectl describe sa dashboard-andre
 Name:                dashboard-andre
 Namespace:           default
